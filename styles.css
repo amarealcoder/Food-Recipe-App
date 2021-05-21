@@ -201,15 +201,21 @@ body {
   color: #918581;
 }
 
-.spinner {
+.loaderDiv,
+.loaderDiv2 {
   margin: 5rem auto;
   text-align: center;
 }
-.spinner svg {
+
+.loader-icon,
+.spinner {
+  /* margin: 6rem 0 0 15rem; */
   height: 6rem;
   width: 6rem;
   fill: #f38e82;
-  animation: rotate 2s infinite linear;
+  color: #f38e82;
+  transform-origin: 44% 50%;
+  animation: rotate 1.5s infinite linear;
 }
 
 @keyframes rotate {
@@ -220,6 +226,27 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* .loaderDiv2 {
+  margin: 5rem auto;
+  text-align: center;
+}
+.spinner {
+  height: 6rem;
+  width: 6rem;
+  color: #f38e82;
+  fill: #f38e82;
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} */
 .message,
 .error {
   max-width: 40rem;
@@ -461,6 +488,20 @@ body {
   list-style: none;
   margin-bottom: 2rem;
 }
+
+/* .loader svg.display {
+  visibility: visible;
+} */
+/* .loaderDiv.hidden {
+  display: none;
+}
+
+@keyframes fadeOut {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    /* display: none; */
 
 .pagination {
   margin-top: auto;
