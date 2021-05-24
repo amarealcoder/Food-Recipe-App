@@ -119,11 +119,6 @@ const fetchData = async (search) => {
   if (!recipeArray.includes(search)){
     ulDiv.innerHTML = `
     <div class="error">
-    <div>
-      <svg>
-        <use href="src/img/icons.svg#icon-alert-triangle"></use>
-      </svg>
-    </div>
     <p>No recipes found for your search. Please try again!</p>
   </div> 
     `;
