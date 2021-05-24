@@ -6,8 +6,9 @@ const recipeDiv = document.querySelector('.recipe');
 const loaderDiv = document.querySelector('.loaderDiv')
 const loaderDiv2 = document.querySelector('.loaderDiv2');
 const pageDiv = document.querySelector('.pagination');
-
-let searchQuery = '';
+const clickFavbtn = document.querySelector('.btn--round');
+const favIds = [];
+// let searchQuery = '';
 
 //selected ids for the random recipes
 const recipeArr = ["49749", "1456", "224b14", "8cede5", "7a41bf", "e33f4f", "7def59", "9822d9", "fd9bc4", "a6d6e1", "54364", "3b6458", "35128", "30697", "35499",  "54279",  "13637", "10716"];
@@ -56,7 +57,7 @@ const recipeArr = ["49749", "1456", "224b14", "8cede5", "7a41bf", "e33f4f", "7de
 
  //get the search input value
 const getInput = (e) => {
-  e.preventDefault()
+  e.preventDefault();
   const value = searchForm.querySelector("input").value
   fetchData(value)
 
@@ -118,6 +119,14 @@ console.log(data);
         `
         //listen for click on all the list element
         item.addEventListener("click", getExtraData.bind(this, result.recipe_id))
+      
+        //array for adding favourites
+      favIds.push(item);
+      console.log(favIds);
+
+      
+
+      //array for pagination
       array.push(item);
   });
 
@@ -202,7 +211,8 @@ const getExtraData = async (id) => {
 
 const displayRecipeData = (recipeData) => {
   
-  console.log(recipeData)
+  console.log(recipeData);
+   recipeDiv.innerHTML = '';
     
     let figure = document.createElement('figure');
     figure.classList.add('recipe__fig');
@@ -304,6 +314,9 @@ const displayRecipeData = (recipeData) => {
     `;
     recipeDiv.append(dirDiv);
 
+   
+    // favIds.push(recipeData);
+    // console.log(favIds);
 }
 
 //listen for submit on the form search and get the input 
