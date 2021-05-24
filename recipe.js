@@ -1,4 +1,50 @@
 //global variables 
+const vegetables = [
+  'carrot', 'broccoli', 'asparagus', 'cauliflower', 'corn',
+  'cucumber', 'green pepper', 'lettuce', 'mushrooms', 'onion', 'potato', 'pumpkin',
+  'red pepper', 'tomato', 'beetroot', 'brussel sprouts', 'peas',
+  'zucchini', 'radish', 'sweet potato', 'artichoke', 'leek', 'cabbage', 'celery',
+];
+
+const spicesRecipe = [
+  'chili', 'garlic', 'basil', 'coriander', 'parsley', 'dill',
+  'rosemary', 'oregano', 'cinnamon', 'saffron', 'curry',
+];
+
+const peasRecipe = ['green bean', 'bean', 'chickpea', 'lentil'];
+
+const fruitsRecipe = [
+  'apple', 'apricot', 'avocado', 'banana', 'blackberry',
+  'blackcurrant', 'blueberry', 'boysenberry',
+  'cherry', 'coconut', 'fig', 'grape', 'grapefruit', 'kiwifruit', 'lemon', 'lime',
+  'lychee', 'mandarin', 'mango', 'melon',
+  'nectarine', 'orange', 'papaya', 'passion fruit', 'peach', 'pear', 'pineapple',
+  'plum', 'pomegranate', 'quince', 'raspberry', 'strawberry', 'watermelon',
+];
+
+const confectioneries = ['pudding', 'donuts', 'hamburger', 'pie', 'cake', 'chips', 'pizza', 'popcorn'];
+
+const dessertRecipe = [
+  'lasagna', 'poke', 'chocolate', 'croissant', 'arepas',
+  'bunny chow', 'pierogi', 'rendang', 'ice cream',
+];
+
+const meals = [
+  'bbq', 'sausage', 'tacos', 'kebab', 'poutine', 'fries', 'masala', 'paella',
+  'som tam', 'toast', 'marzipan', 'tofu', 'ketchup', 'hummus', 'chili', 'maple syrup',
+  'parma ham', 'fajitas', 'champ', 'salad', 'pasta',
+];
+
+const protein = [
+  'sushi', 'pepperoni', 'duck', 'salami', 'beef', 'goat', 'lamb', 'bacon', 'chicken',
+  'turkey', 'pork', 'fish', 'crab', 'ham', 'ribs', 'lobster', 'steak', 'seafood',
+];
+
+const recipeArray = [
+  ...vegetables, ...spicesRecipe, ...confectioneries,
+  ...protein, ...meals, ...dessertRecipe, ...peasRecipe, ...fruitsRecipe,
+];
+
 const searchForm = document.querySelector('form');
 const searchResultDiv = document.querySelector('.search-results');
 const ulDiv = document.querySelector('.results');
@@ -7,6 +53,7 @@ const loaderDiv = document.querySelector('.loaderDiv')
 const loaderDiv2 = document.querySelector('.loaderDiv2');
 const pageDiv = document.querySelector('.pagination');
 const clickFavbtn = document.querySelector('.btn--round');
+// let searchArray = [];
 const favIds = [];
 // let searchQuery = '';
 
@@ -69,11 +116,21 @@ const getInput = (e) => {
 
  //fetch the search input endpoint
 const fetchData = async (search) => {
+  if (!recipeArray.includes(search)){
+    ulDiv.innerHTML = `
+    <div class="error">
+    <div>
+      <svg>
+        <use href="src/img/icons.svg#icon-alert-triangle"></use>
+      </svg>
+    </div>
+    <p>No recipes found for your search. Please try again!</p>
+  </div> 
+    `;
+    return;
+  }
   const loader = `<ion-icon name="reload" class="loader-icon"></ion-icon>`;
   loaderDiv.innerHTML = loader;
-
-
-
   const url = `https://forkify-api.herokuapp.com/api/search?q=${search}`;
   const res = await fetch(url)
   const data = await res.json();
@@ -83,21 +140,11 @@ const fetchData = async (search) => {
    loaderDiv.style.display = 'none';
   }
   
-  if (search === null){
-    ulDiv.innerHTML = `
-    <div class="error">
-    <div>
-      <svg>
-        <use href="src/img/icons.svg#icon-alert-triangle"></use>
-      </svg>
-    </div>
-    <p>No recipes found for your query. Please try again!</p>
-  </div> 
-    `
-  };
-
  displayData(data.recipes);
 }
+
+
+
 
 //add html element for the recipes fetch result
 const displayData = data => {
