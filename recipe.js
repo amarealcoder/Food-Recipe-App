@@ -21,7 +21,7 @@ const recipeArr = ["49749", "1456", "224b14", "8cede5", "7a41bf", "e33f4f", "7de
   const getRandomRecipe = async (randomRecipeId) => {
     const randomResponse = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${randomRecipeId}`);
     const randomData = await randomResponse.json();
-    console.log(randomData);
+    // console.log(randomData);
     return randomData;
   }
   
@@ -50,20 +50,18 @@ const recipeArr = ["49749", "1456", "224b14", "8cede5", "7a41bf", "e33f4f", "7de
     figure.append(randomTitle);
     figure.append(figureImage);
     figure.append(figureTitle);
-    figure.style.marginBottom = "8rem";
     recipeDiv.append(figure);
   } 
 })();
 
  //get the search input value
 const getInput = (e) => {
-  e.preventDefault();
-  const value = searchForm.querySelector("input").value
-  fetchData(value)
+  // e.preventDefault();
+  const value = searchForm.querySelector("input").value;
+  fetchData(value);
 
-  //clear the search input on submit
-  function clearSearch(){
-    document.querySelector('.search__field').value = ' ';
+  const clearSearch = () =>{
+    searchForm.querySelector("input").value = '';
   }
   clearSearch();
 }
@@ -73,6 +71,9 @@ const getInput = (e) => {
 const fetchData = async (search) => {
   const loader = `<ion-icon name="reload" class="loader-icon"></ion-icon>`;
   loaderDiv.innerHTML = loader;
+
+
+
   const url = `https://forkify-api.herokuapp.com/api/search?q=${search}`;
   const res = await fetch(url)
   const data = await res.json();
@@ -82,12 +83,27 @@ const fetchData = async (search) => {
    loaderDiv.style.display = 'none';
   }
   
- displayData(data.recipes)
+  if (search === null){
+    ulDiv.innerHTML = `
+    <div class="error">
+    <div>
+      <svg>
+        <use href="src/img/icons.svg#icon-alert-triangle"></use>
+      </svg>
+    </div>
+    <p>No recipes found for your query. Please try again!</p>
+  </div> 
+    `
+  };
+
+ displayData(data.recipes);
 }
 
 //add html element for the recipes fetch result
 const displayData = data => {
-console.log(data);
+
+  ulDiv.innerHTML = '';
+
   pageDiv.innerHTML = `
   <button class="btn--inline pagination__btn--prev">
     <span>Page 1</span>
@@ -102,6 +118,7 @@ console.log(data);
 
   //loop through the fetch result to add elements
   data.map(result => {
+        
         let item = document.createElement("li")
         item.classList.add("preview")
         item.innerHTML = `
@@ -120,13 +137,7 @@ console.log(data);
         //listen for click on all the list element
         item.addEventListener("click", getExtraData.bind(this, result.recipe_id))
       
-        //array for adding favourites
-      favIds.push(item);
-      console.log(favIds);
-
-      
-
-      //array for pagination
+       //array for pagination
       array.push(item);
   });
 
@@ -211,7 +222,7 @@ const getExtraData = async (id) => {
 
 const displayRecipeData = (recipeData) => {
   
-  console.log(recipeData);
+  // console.log(recipeData);
    recipeDiv.innerHTML = '';
     
     let figure = document.createElement('figure');
@@ -264,16 +275,11 @@ const displayRecipeData = (recipeData) => {
     const userGen = document.createElement('div');
     userGen.classList.add('recipe__user-generated');
     userGen.innerHTML = `
-      <ion-icon name="person-outline"></ion-icon>   
-    `;
+    <button class="btn--round">
+      <ion-icon name="heart"></ion-icon>
+    </button>
+    `
     recipeDetails.append(userGen);
-
-    const userBTN = document.createElement('button');
-      userBTN.classList.add('btn--round');
-    userBTN.innerHTML = `
-          <ion-icon name="bookmark"></ion-icon>
-    `;
-    recipeDetails.append(userBTN);
     recipeDiv.append(recipeDetails);
 
     const ingrDiv = document.createElement('div');
@@ -314,12 +320,29 @@ const displayRecipeData = (recipeData) => {
     `;
     recipeDiv.append(dirDiv);
 
-   
-    // favIds.push(recipeData);
-    // console.log(favIds);
+    
+    
 }
 
-//listen for submit on the form search and get the input 
+// clickFavbtn.addEventListener('click', () => {
+//   console.log("clicked");
+// });
+// favIds.push(recipeData);
+// console.log(favIds);
+
+
+// listen for submit on the form search and get the input 
 searchForm.addEventListener("submit", getInput)
 
 
+
+    //   <ion-icon name="person-outline"></ion-icon>   
+    // `;
+    // recipeDetails.append(userGen);
+
+    // const userBTN = document.createElement('button');
+    //   userBTN.classList.add('btn--round');
+    // userBTN.innerHTML = `
+    //       <ion-icon name="bookmark"></ion-icon>
+    // ;
+    // recipeDetails.append(userBTN);
