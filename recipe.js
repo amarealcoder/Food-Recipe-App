@@ -52,18 +52,14 @@ const recipeDiv = document.querySelector('.recipe');
 const loaderDiv = document.querySelector('.loaderDiv')
 const loaderDiv2 = document.querySelector('.loaderDiv2');
 const pageDiv = document.querySelector('.pagination');
-const clickFavbtn = document.querySelector('.btn--round');
-// let searchArray = [];
-const favIds = [];
-// let searchQuery = '';
 
 //selected ids for the random recipes
-const recipeArr = ["49749", "1456", "224b14", "8cede5", "7a41bf", "e33f4f", "7def59", "9822d9", "fd9bc4", "a6d6e1", "54364", "3b6458", "35128", "30697", "35499",  "54279",  "13637", "10716"];
+const recipeArr = ["49749", "36453", "1456", "224b14", "8cede5", "7a41bf", "10716", "7def59", "9822d9", "fd9bc4", "a6d6e1", "54364", "3b6458", "35128", "30697", "35499",  "54279",  "13637", "10716"];
 
 //immediately invoked function to display the random recipes
 (function (){
   const randomRecipeId = recipeArr[Math.floor(Math.random() * recipeArr.length)];
-  
+ 
  //fetch the recipe ids
   const getRandomRecipe = async (randomRecipeId) => {
     const randomResponse = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${randomRecipeId}`);
@@ -290,18 +286,7 @@ const displayRecipeData = (recipeData) => {
         <h1 class="recipe__title">
           <span>${recipeData.title}</span>
         </h1>
-    `
-    // const figureImage = document.createElement('img');
-    // figureImage.classList.add('recipe__img');
-    // figureImage.setAttribute('alt', `${recipeData.title}`);
-    // figureImage.src = `${recipeData.image_url}`;
-    // const figureTitle = document.createElement('h1');
-    // figureTitle.classList.add('recipe__title');
-    // let figureSpan = document.createElement('span');
-    // figureSpan.textContent = `${recipeData.title}`;
-    // figureTitle.append(figureSpan);
-    // figure.append(figureImage);
-    // figure.append(figureTitle);
+    `;
 
     recipeDiv.append(figure);
 
@@ -347,54 +332,35 @@ const displayRecipeData = (recipeData) => {
     </svg>
   </button>
     `;
-  
-  
-    // const recipeInfo1 = document.createElement('div');
-    // recipeInfo1.classList.add('recipe__info');
-    // recipeInfo1.innerHTML = `
-    // <ion-icon name="time-outline" class="recipe__info-icon"></ion-icon>
-    // <span class="recipe__info-data recipe__info-data--minutes">45</span>
-    // <span class="recipe__info-text">minutes</span>`;
-    // recipeDetails.append(recipeInfo1);
-
-    // const RecipeInfo2 = document.createElement('div');
-    // RecipeInfo2.classList.add('recipe__info');
-    // RecipeInfo2.innerHTML =`
-    // <ion-icon name="people-outline" class="recipe__info-icon></ion-icon>
-    // <span class="recipe__info-data recipe__info-data--people">4</span>
-    // <span class="recipe__info-text">servings</span>`;
-    // recipeDetails.append(RecipeInfo2);
-
-    // const recipeBTN = document.createElement('div');
-    // recipeBTN.classList.add('recipe__info-buttons');
-    // recipeBTN.innerHTML = `
-    // <button class="btn--tiny btn--increase-servings">
-    //         <ion-icon name="remove-circle-outline"></ion-icon>
-    // </button>
-    // <button class="btn--tiny btn--increase-servings">
-    //         <ion-icon name="add-circle-outline"></ion-icon>
-    // </button>`;
-    // RecipeInfo2.append(recipeBTN);  
-
-
-    // const userGen = document.createElement('div');
-    // userGen.classList.add('recipe__user-generated');
-    // userGen.innerHTML = `
-    // <button class="btn--round">
-    //   <ion-icon name="heart"></ion-icon>
-    // </button>
-    // `
-    // recipeDetails.append(userGen);
     recipeDiv.append(recipeDetails);
 
+    const ingredients = recipeData.ingredients;
     const ingrDiv = document.createElement('div');
     ingrDiv.classList.add('recipe__ingredients');
-    ingrDiv.innerHTML =`
-        ${recipeData.ingredients}
-    `;
-    // const ingredients = `${recipeData.ingredients}`;
-    // <h2 class="heading--2">Recipe ingredients</h2>
-    //       <ul class="recipe__ingredient-list">
+    const ingrH2 = document.createElement('h2');
+    ingrH2.classList.add('heading--2');
+    ingrH2.innerHTML = 'Recipe ingredients';
+    ingrDiv.append(ingrH2);
+    
+    const ingrUl = document.createElement('ul');
+    ingrUl.classList.add('recipe__ingredient-list');
+    for(const ingr of ingredients){
+      const list = document.createElement('li');
+      list.classList.add('recipe__ingredient');
+      list.innerHTML =`
+      <svg class="recipe__icon">
+          <use xlink:href="check-solid.svg#icon-check"></use>
+      </svg>
+
+      <div class="recipe__description">
+      ${ingr}
+      </div>
+      `;
+      ingrUl.appendChild(list);
+    }
+    ingrDiv.append(ingrUl);
+     
+    //      
     //         <li class="recipe__ingredient">
     //           <svg class="recipe__icon">
     //             <use xlink:href="check-solid.svg#icon-check"></use>
@@ -416,7 +382,7 @@ const displayRecipeData = (recipeData) => {
     //             ricotta cheese
     //           </div>
     //         </li>
-              // </ul>
+   // </ul>
     recipeDiv.append(ingrDiv);
 
     const dirDiv = document.createElement('div');
@@ -439,48 +405,29 @@ const displayRecipeData = (recipeData) => {
       </svg>
     </a>
     `;
-    // dirDiv.innerHTML = `
-    //   <h2 class="heading--2">How to cook it</h2>
-    //     <p class="recipe__directions-text">
-    //       This recipe was carefully designed and tested by
-    //       <span class="recipe__publisher">${recipeData.publisher}</span>. Please check out
-    //       directions at their website.
-    //     </p>
-    //     <a
-    //       class="btn--small recipe__btn"
-    //       href="${recipeData.publisher_url}"
-    //       target="_blank"
-    //     >
-    //       <span>Directions</span>
-          
-    //       <ion-icon name="arrow-forward-outline" class="search__icon"></ion-icon>
-    //     </a>
-    // // `;
-    recipeDiv.append(dirDiv);
+    recipeDiv.append(dirDiv); 
 
     
-    
+    // const favIds = [];
+
+
+    // const favBtn = document.querySelector('.btn--round');  
+    // favBtn.addEventListener('click', () => {
+    //   console.log("clicked");
+    //   localStorage.setItem('favorites', JSON.stringify(figure));
+    //   // localStorage.setItem('favorites', figure);
+    //  });
+
+    //  const storedFavs = document.querySelector('.nav__btn--bookmarks');
+    //  storedFavs.addEventListener('click', () => {
+    //   console.log("clicked");
+    //  });
 }
 
-// clickFavbtn.addEventListener('click', () => {
-//   console.log("clicked");
-// });
 // favIds.push(recipeData);
 // console.log(favIds);
 
 
 // listen for submit on the form search and get the input 
-searchForm.addEventListener("submit", getInput)
+searchForm.addEventListener("submit", getInput);
 
-
-
-    //   <ion-icon name="person-outline"></ion-icon>   
-    // `;
-    // recipeDetails.append(userGen);
-
-    // const userBTN = document.createElement('button');
-    //   userBTN.classList.add('btn--round');
-    // userBTN.innerHTML = `
-    //       <ion-icon name="bookmark"></ion-icon>
-    // ;
-    // recipeDetails.append(userBTN);
