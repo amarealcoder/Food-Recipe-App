@@ -8,11 +8,15 @@
       href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
       rel="stylesheet"
     />
+
+    <!-- <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet" /> -->
+    <!--load all styles -->
+
     <!-- <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" /> -->
 
     <!-- <link rel="stylesheet" href="src/sass/main.scss" /> -->
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <!-- <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script> -->
     <script defer src="recipe.js"></script>
 
     <title>forkify // Search over 1,000,000 recipes</title>
@@ -29,9 +33,9 @@
             placeholder="Search over 1,000,000 recipes..."
           />
           <button class="btn search__btn">
-            <!-- <svg class="search__icon">
-              <use href="src/img/icons.svg#icon-search"></use>
-            </svg> -->
+            <svg class="search__icon">
+              <use xlink:href="icons.svg#icon-search"></use>
+            </svg>
             <span>Search</span>
           </button>
         </form>
@@ -40,26 +44,26 @@
           <ul class="nav__list">
             <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
-                <!-- <svg class="nav__icon">
-                  <use href="src/img/icons.svg#icon-edit"></use>
-                </svg> -->
+                <svg class="nav__icon">
+                  <use xlink:href="edit.svg#icon-edit"></use>
+                </svg>
                 <span>Add recipe</span>
               </button>
             </li>
             <li class="nav__item">
               <button class="nav__btn nav__btn--bookmarks">
-                <!-- <svg class="nav__icon">
-                  <use href="src/img/icons.svg#icon-bookmark"></use>
-                </svg> -->
+                <svg class="nav__icon">
+                  <use xlink:href="heart.svg#icon-bookmark"></use>
+                </svg>
                 <span>Favourites</span>
               </button>
               <div class="bookmarks">
                 <ul class="bookmarks__list">
                   <div class="message">
                     <div>
-                      <!-- <svg>
-                        <use href="src/img/icons.svg#icon-smile"></use>
-                      </svg> -->
+                      <svg class="smile__icon">
+                        <use xlink:href="smile-regular.svg#icon-smile"></use>
+                      </svg>
                     </div>
                     <p>
                       No favourites yet. Find a nice recipe and add to
@@ -89,7 +93,7 @@
 
       <div class="search-results">
         <div class="loaderDiv"></div>
-        <!-- <ion-icon name="reload" class="loader-icon"></ion-icon> -->
+
         <ul class="results">
           <!-- 
           <li class="preview">
@@ -141,9 +145,9 @@
       <div class="recipe">
         <div class="message">
           <div>
-            <!-- <svg>
-              <use href="src/img/icons.svg#icon-smile"></use>
-            </svg> -->
+            <svg>
+              <use xlink:href="smile-regular.svg#icon-smile"></use>
+            </svg>
           </div>
           <p>Start by searching for a recipe or an ingredient. Have fun!</p>
         </div>
@@ -327,9 +331,9 @@
         </div>
 
         <button class="btn upload__btn">
-          <!-- <svg>
-            <use href="src/img/icons.svg#icon-upload-cloud"></use>
-          </svg> -->
+          <svg>
+            <use href="cloud-upload.svg#icon-upload-cloud"></use>
+          </svg>
           <span>Upload</span>
         </button>
       </form>

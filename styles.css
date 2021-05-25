@@ -394,6 +394,14 @@ body {
   opacity: 1;
 }
 
+.alert-div {
+  text-align: center;
+}
+.icon-alert-triangle {
+  height: 50px;
+  width: 50px;
+}
+
 .preview__link:link,
 .preview__link:visited {
   display: flex;
